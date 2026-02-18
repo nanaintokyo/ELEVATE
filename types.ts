@@ -5,7 +5,12 @@ export enum Mood {
   ANXIOUS = 'Anxious',
   POWERFUL = 'Powerful',
   SEEKING = 'Seeking',
-  JOYFUL = 'Joyful'
+  JOYFUL = 'Joyful',
+  FORGIVENESS = 'Forgiveness',
+  PRAYERFUL = 'Prayerful',
+  WISDOM = 'Wisdom',
+  HEALING = 'Healing',
+  PEACE = 'Peace'
 }
 
 export type TimeOfDay = 'Morning' | 'Afternoon' | 'Evening' | 'Night';

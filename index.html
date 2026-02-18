@@ -14,8 +14,9 @@
             background-color: #FDFCF0;
             color: #000000;
             font-family: 'Inter', sans-serif;
-            overflow: hidden;
             -webkit-font-smoothing: antialiased;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         .font-serif-bold {
             font-family: 'Playfair Display', serif;
@@ -25,57 +26,71 @@
         .bg-creme { background-color: #FDFCF0; }
         .text-accent-blue { color: #2563EB; }
         
-        /* Smooth Slide-In from the Side (Deck Motion) */
-        @keyframes cardSlideIn {
-            0% { opacity: 0; transform: translateX(-40px) scale(0.98); filter: blur(10px); }
-            100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+        /* The Pronounced Float Animation */
+        @keyframes pronouncedFloat {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            33% { transform: translateY(-15px) translateX(10px) rotate(1deg); }
+            66% { transform: translateY(-5px) translateX(-10px) rotate(-1deg); }
+            100% { transform: translateY(0) translateX(0) rotate(0deg); }
         }
-        .animate-card-slide {
-            animation: cardSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* Subtle Horizontal Floating for Reference */
-        @keyframes referenceGlide {
-            0% { transform: translate(-50%, 0); }
-            50% { transform: translate(-48%, -5px); }
-            100% { transform: translate(-50%, 0); }
-        }
-        .animate-ref-glide {
-            animation: referenceGlide 12s ease-in-out infinite;
-            will-change: transform;
+        .animate-float-pronounced {
+            animation: pronouncedFloat 8s ease-in-out infinite;
         }
 
-        /* Flash Card Aesthetics (Static Deck) */
+        /* Joystick Styling */
+        .joystick-base {
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .joystick-stick {
+            width: 24px;
+            height: 24px;
+            background: #2563EB;
+            border-radius: 50%;
+            border: 3px solid #000;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .joystick-base:hover .joystick-stick {
+            transform: translate(-4px, -4px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        /* Compact Card Stack */
         .flash-card-stack {
             position: relative;
             background: #ffffff;
             border: 3px solid #000000;
-            box-shadow: 15px 15px 0px 0px #000000;
-            transition: transform 0.3s ease;
+            box-shadow: 8px 8px 0px 0px #000000;
         }
-        /* The "cards behind" effect */
         .flash-card-stack::before {
             content: '';
             position: absolute;
-            top: 6px;
-            left: 6px;
-            right: -10px;
-            bottom: -10px;
+            top: 4px;
+            left: 4px;
+            right: -8px;
+            bottom: -8px;
             background: #ffffff;
-            border: 3px solid #000000;
+            border: 2px solid #000000;
             z-index: -1;
         }
-        .flash-card-stack::after {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            right: -18px;
-            bottom: -18px;
-            background: #ffffff;
-            border: 3px solid #000000;
-            z-index: -2;
-            opacity: 0.5;
+
+        /* Gratitude Scroll */
+        .gratitude-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Modal Blur */
+        .modal-overlay {
+            backdrop-filter: blur(8px);
+            background: rgba(253, 252, 240, 0.8);
         }
 
         blockquote {
