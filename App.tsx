@@ -78,7 +78,7 @@ const App: React.FC = () => {
         
         <button 
           onClick={handleRefresh}
-          className="group p-5 bg-black text-creme rounded-full transition-all duration-500 hover:rotate-90 active:scale-90 shadow-2xl"
+          className="group p-5 bg-black text-creme rounded-full transition-all duration-300 hover:scale-110 active:scale-90 shadow-2xl"
           aria-label="New Card"
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,22 +87,21 @@ const App: React.FC = () => {
         </button>
       </header>
 
-      {/* 3D Flash Card Stack */}
+      {/* Static Deck Container */}
       <section className="flex-1 flex flex-col items-center justify-center w-full max-w-5xl px-4 z-10">
         <div className="relative w-full flex justify-center">
           {loading ? (
-            <div className="flash-card-stack w-full max-w-2xl p-16 md:p-24 flex flex-col items-center justify-center space-y-8 animate-pulse">
+            <div className="flash-card-stack w-full max-w-2xl p-16 md:p-24 flex flex-col items-center justify-center space-y-8 animate-pulse bg-white">
               <div className="h-12 bg-black/5 w-full rounded"></div>
               <div className="h-12 bg-black/5 w-4/5 rounded"></div>
-              <div className="h-4 bg-accent-blue/20 w-32 rounded mt-8"></div>
             </div>
           ) : error ? (
-            <div className="flash-card-stack w-full max-w-2xl p-16 text-center border-red-500">
+            <div className="flash-card-stack w-full max-w-2xl p-16 text-center">
               <p className="text-xl font-black uppercase tracking-widest text-red-500">{error}</p>
             </div>
           ) : (
-            <div key={verse?.reference} className="animate-card-entry w-full max-w-2xl">
-              <div className="animate-card-3d flash-card-stack p-12 md:p-20 flex flex-col items-center justify-center">
+            <div key={verse?.reference} className="animate-card-slide w-full max-w-2xl">
+              <div className="flash-card-stack p-12 md:p-20 flex flex-col items-center justify-center bg-white">
                 <blockquote className="text-3xl md:text-5xl lg:text-6xl font-serif-bold leading-[1.1] mb-10 text-black text-center normal-case">
                   “{verse?.text}”
                 </blockquote>
@@ -116,15 +115,15 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Mood Selector & Floating Reference */}
+      {/* Footer Controls & Gliding Reference */}
       <footer className="w-full max-w-6xl flex flex-col items-center z-30 pb-12">
         <MoodSelector currentMood={mood} onMoodChange={handleMoodChange} />
         
-        {/* Organic Balloon Reference */}
+        {/* Subtle Floating Reference at the bottom */}
         <div className="mt-24 relative w-full h-32 flex items-center justify-center">
           {!loading && verse && (
-            <div className="animate-balloon-organic absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none">
-              <span className="text-3xl md:text-5xl lg:text-6xl font-black tracking-[0.5em] uppercase text-black/100 select-none drop-shadow-sm">
+            <div className="animate-ref-glide absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none">
+              <span className="text-3xl md:text-5xl lg:text-7xl font-black tracking-[0.5em] uppercase text-black select-none opacity-90">
                 {verse.reference}
               </span>
             </div>

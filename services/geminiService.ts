@@ -5,32 +5,32 @@ import { Mood, TimeOfDay, VerseData } from "../types";
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
 export const fetchVerse = async (mood: Mood, timeOfDay: TimeOfDay): Promise<VerseData> => {
-  const prompt = `Provide a powerful, uplifting Bible verse specifically curated for a woman aiming to "elevate" herself this year. 
-  The selection should be based on the following context:
-  - User's Current Mood: ${mood}
-  - Time of Day: ${timeOfDay}
-  Focus on themes of strength, grace, wisdom, and spiritual growth.`;
+  const prompt = `Provide a powerful Bible verse specifically for a woman's "elevation" journey.
+  Mandatory Requirements:
+  - BIBLE VERSION: Use ONLY "NKJV" (English) or "LSG 1910" (French). Do not use other versions.
+  - CONTEXT: Mood is ${mood}, Time is ${timeOfDay}.
+  - THEME: Strength, growth, grace, and divine authority.`;
 
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: prompt,
     config: {
-      systemInstruction: "You are a spiritual mentor focusing on empowering women through biblical wisdom. Your tone is minimalistic, bold, and encouraging. Return ONLY JSON.",
+      systemInstruction: "You are an empowering spiritual mentor. Your output must be ONLY a JSON object. You must respect the requested Bible versions (NKJV or LSG 1910). Your tone is bold, minimalist, and proper.",
       responseMimeType: "application/json",
       responseSchema: {
         type: Type.OBJECT,
         properties: {
           text: {
             type: Type.STRING,
-            description: "The full text of the Bible verse.",
+            description: "The Bible verse text (NKJV or LSG 1910).",
           },
           reference: {
             type: Type.STRING,
-            description: "The book, chapter, and verse (e.g., Genesis 1:1).",
+            description: "The book, chapter, and verse reference.",
           },
           reflection: {
             type: Type.STRING,
-            description: "A very short, one-sentence empowering reflection for a modern woman.",
+            description: "A short, one-sentence empowering reflection.",
           },
         },
         required: ["text", "reference", "reflection"],
@@ -43,9 +43,9 @@ export const fetchVerse = async (mood: Mood, timeOfDay: TimeOfDay): Promise<Vers
   } catch (error) {
     console.error("Failed to parse verse data", error);
     return {
-      text: "The Lord is my light and my salvation; whom shall I fear?",
-      reference: "Psalm 27:1",
-      reflection: "Walk in confidence today, knowing you are protected and guided."
+      text: "God is in the midst of her, she shall not be moved; God shall help her, just at the break of dawn.",
+      reference: "Psalm 46:5 (NKJV)",
+      reflection: "You are unshakable because the Divine is within you."
     };
   }
 };

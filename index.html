@@ -16,7 +16,6 @@
             font-family: 'Inter', sans-serif;
             overflow: hidden;
             -webkit-font-smoothing: antialiased;
-            perspective: 1000px;
         }
         .font-serif-bold {
             font-family: 'Playfair Display', serif;
@@ -26,57 +25,57 @@
         .bg-creme { background-color: #FDFCF0; }
         .text-accent-blue { color: #2563EB; }
         
-        /* Floating Flash Card Stack Animation */
-        @keyframes cardFloat3D {
-            0%, 100% { transform: translateY(0) rotateX(2deg) rotateY(-1deg); }
-            50% { transform: translateY(-20px) rotateX(-2deg) rotateY(1deg); }
+        /* Smooth Slide-In from the Side (Deck Motion) */
+        @keyframes cardSlideIn {
+            0% { opacity: 0; transform: translateX(-40px) scale(0.98); filter: blur(10px); }
+            100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
         }
-        .animate-card-3d {
-            animation: cardFloat3D 6s ease-in-out infinite;
-            transform-style: preserve-3d;
-        }
-
-        /* Card Entry Animation */
-        @keyframes cardEntry {
-            0% { opacity: 0; transform: translateY(60px) scale(0.9) rotateX(10deg); filter: blur(15px); }
-            100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0); filter: blur(0); }
-        }
-        .animate-card-entry {
-            animation: cardEntry 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .animate-card-slide {
+            animation: cardSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Organic Balloon Float for Reference */
-        @keyframes organicBalloon {
-            0% { transform: translate(-50%, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(-52%, -25px) scale(1.02) rotate(1deg); }
-            50% { transform: translate(-50%, -45px) scale(1) rotate(0deg); }
-            75% { transform: translate(-48%, -25px) scale(0.98) rotate(-1deg); }
-            100% { transform: translate(-50%, 0) scale(1) rotate(0deg); }
+        /* Subtle Horizontal Floating for Reference */
+        @keyframes referenceGlide {
+            0% { transform: translate(-50%, 0); }
+            50% { transform: translate(-48%, -5px); }
+            100% { transform: translate(-50%, 0); }
         }
-        .animate-balloon-organic {
-            animation: organicBalloon 10s ease-in-out infinite;
+        .animate-ref-glide {
+            animation: referenceGlide 12s ease-in-out infinite;
             will-change: transform;
         }
 
-        /* Flash Card Aesthetics */
+        /* Flash Card Aesthetics (Static Deck) */
         .flash-card-stack {
             position: relative;
             background: #ffffff;
             border: 3px solid #000000;
             box-shadow: 15px 15px 0px 0px #000000;
-            transition: all 0.5s ease;
+            transition: transform 0.3s ease;
         }
-        /* Pseudo-element for stacked card look */
+        /* The "cards behind" effect */
         .flash-card-stack::before {
             content: '';
             position: absolute;
-            top: 8px;
-            left: 8px;
-            right: -11px;
-            bottom: -11px;
+            top: 6px;
+            left: 6px;
+            right: -10px;
+            bottom: -10px;
             background: #ffffff;
             border: 3px solid #000000;
             z-index: -1;
+        }
+        .flash-card-stack::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: -18px;
+            bottom: -18px;
+            background: #ffffff;
+            border: 3px solid #000000;
+            z-index: -2;
+            opacity: 0.5;
         }
 
         blockquote {
